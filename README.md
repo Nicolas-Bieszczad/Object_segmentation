@@ -72,11 +72,11 @@ Each trial trained the YOLOv11-seg model for 10 epochs. Training and validation 
 
 The random search approach provided an efficient way to explore different hyperparameter combinations, ultimately improving the segmentation accuracy for workers and machinery in our environment.
 
-![Training Loss curves for random search hyperparameter tuning](/Images/Randomsearch_train_loss.png)
+![Training Loss curves for random search hyperparameter tuning](Images/Randomsearch_train_loss.png)
 
-![Validation Loss curves for random search hyperparameter tuning](/Images/Randomsearch_val_loss.png)
+![Validation Loss curves for random search hyperparameter tuning](Images/Randomsearch_val_loss.png)
 
-![Metric curves for random search hyperparameter tuning](/Images/Randomsearch_metrics.png)
+![Metric curves for random search hyperparameter tuning](Images/Randomsearch_metrics.png)
 
 *Figure: Loss and metric curves for the different hyperparameter configurations tested during the random search optimization of the YOLOv11-seg model.*
 
