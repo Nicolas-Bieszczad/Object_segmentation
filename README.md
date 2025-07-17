@@ -39,5 +39,41 @@ The dataset was split into three subsets:
 
 This split follows a 70% / 15% / 15% distribution and ensures balanced representation across all stages of model development and evaluation.
 
+### Evaluation Metrics
+
+To evaluate the performance of our object segmentation model, we rely on standard metrics commonly used in segmentation tasks: **Precision**, **Recall**, and **mean Average Precision** (mAP).
+
+- **Precision** measures the proportion of true positive predictions among all positive predictions made by the model, indicating how accurate the model's positive predictions are. Since we are segmenting two classes—**workers** and **machinery**—we report precision separately for each class to understand class-specific performance.
+
+- **Recall** measures the proportion of true positive predictions among all actual objects, reflecting the model's ability to find all relevant instances in the dataset.
+
+The primary metric for instance segmentation is the **mean Average Precision (mAP)**, which summarizes the trade-off between precision and recall across different Intersection over Union (IoU) thresholds.
+
+In our evaluation, we report:
+
+- **mAP@0.5**: The average precision when predicted masks are considered correct if their IoU with ground truth masks is at least 0.5.
+- **mAP@0.5:0.95**: The average mAP computed at multiple IoU thresholds from 0.5 to 0.95 with a step size of 0.05, providing a more comprehensive and stringent measure of segmentation quality.
+
+Reporting precision per class alongside overall mAP helps us analyze how well the model distinguishes and segments workers and machinery individually, enabling targeted improvements in the segmentation pipeline.
+
+
+## Hyperparameter Optimization and Model Training
+
+To optimize the performance of the YOLOv11-seg model on our segmentation task, we conducted a **random search** over the following hyperparameter space:
+
+- **Batch size**: tested values of 16 and 32.
+- **Initial learning rate (`lr0`)**: tested values of `1e-3` and `1e-4`.
+- **Weight decay**: tested values of `1e-4` and `1e-3`.
+- **Optimizer**: tested both **SGD** and **Adam** optimizers.
+
+A total of 6 trials were performed, each with a unique combination of these hyperparameters.
+
+Each trial trained the YOLOv11-seg model for 10 epochs. Training and validation metrics, including loss and mean Average Precision (mAP), were logged and monitored using **Weights & Biases (wandb)**. This logging enabled systematic comparison of results across trials and facilitated selection of the best hyperparameter configuration.
+
+The random search approach provided an efficient way to explore different hyperparameter combinations, ultimately improving the segmentation accuracy for workers and machinery in our environment.
+
+
+
+
 
 
