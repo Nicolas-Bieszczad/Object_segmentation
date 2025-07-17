@@ -43,7 +43,7 @@ This split follows a 70% / 15% / 15% distribution and ensures balanced represent
 
 To evaluate the performance of our object segmentation model, we rely on standard metrics commonly used in segmentation tasks: **Precision**, **Recall**, and **mean Average Precision** (mAP).
 
-- **Precision** measures the proportion of true positive predictions among all positive predictions made by the model, indicating how accurate the model's positive predictions are. Since we are segmenting two classes—**workers** and **machinery**—we report precision separately for each class to understand class-specific performance.
+- **Precision** measures the proportion of true positive predictions among all positive predictions made by the model, indicating how accurate the model's positive predictions are.
 
 - **Recall** measures the proportion of true positive predictions among all actual objects, reflecting the model's ability to find all relevant instances in the dataset.
 
@@ -122,12 +122,13 @@ While a large number of workers and machines are successfully detected, a portio
   <br>
   <em>Figure 3 : Segmentation output labels (left) and predictions (right) by the model</em>
 </p>
+The major part of machines and worker is detected and the masks appear to fully cover the detected objects. However, some mistakes and omissions can be seen, confirming the results presented above. 
 
 ### Discussion and Comparison with Object Detection Results
 
-The previous object detection model achieved notably higher performance metrics, with a precision of 99.1%, recall of 98.2%, mAP@0.5 of 99.4%, and mAP@0.5:0.95 of 89.4% on the test set. In contrast, the current segmentation model obtained lower scores, particularly in mAP metrics, reflecting the increased complexity of the segmentation task.
+A previous study has been made on the training of an object detection model (YOLO11) that had to detect workers on working sites. This object detection model achieved notably higher performance metrics, with a precision of 99.1%, recall of 98.2%, mAP@0.5 of 99.4%, and mAP@0.5:0.95 of 89.4% on the test set. In contrast, the current segmentation model obtained lower scores, particularly in mAP metrics, reflecting the increased complexity of the segmentation task.
 
-It is important to consider that the object detection model was trained to detect only a single class, *workers*, whereas the segmentation model handles two classes: *workers* and *machinery*. This multi-class setup inherently introduces additional challenges, as the model must accurately distinguish and segment multiple types of objects within the scene. Furthermore, instance segmentation demands pixel-level precision in delineating object boundaries, which is a more complex and fine-grained task than bounding box detection. Therefore, lower metrics in segmentation compared to detection are expected and consistent with the increased difficulty of the task.
+It is important to consider that the object detection model was trained to detect only a single class, *workers*, whereas the segmentation model handles two classes: workers and machinery. This multi-class setup inherently introduces additional challenges, as the model must accurately distinguish and segment multiple types of objects within the scene. Furthermore, instance segmentation demands pixel-level precision in delineating object boundaries, which is a more complex and fine-grained task than bounding box detection. Therefore, lower metrics in segmentation compared to detection are expected and consistent with the increased difficulty of the task.
 
 Moreover, while the quantitative evaluation on the dataset provides valuable insights, it remains essential to validate the model's performance on real worksite footage where the hardware and software system will be deployed. Real-world conditions may introduce additional variability in lighting, occlusions, and object appearances, which could affect detection and segmentation accuracy. Such field testing will be critical to fully assess the practical effectiveness and robustness of the segmentation model in operational settings.
 
