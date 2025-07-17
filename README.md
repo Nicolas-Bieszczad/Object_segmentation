@@ -123,6 +123,23 @@ While a large number of workers and machines are successfully detected, a portio
   <em>Figure 3 : Segmentation output labels (left) and predictions (right) by the model</em>
 </p>
 
+### Discussion and Comparison with Object Detection Results
+
+The previous object detection model achieved notably higher performance metrics, with a precision of 99.1%, recall of 98.2%, mAP@0.5 of 99.4%, and mAP@0.5:0.95 of 89.4% on the test set. In contrast, the current segmentation model obtained lower scores, particularly in mAP metrics, reflecting the increased complexity of the segmentation task.
+
+It is important to consider that the object detection model was trained to detect only a single class, *workers*, whereas the segmentation model handles two classes: *workers* and *machinery*. This multi-class setup inherently introduces additional challenges, as the model must accurately distinguish and segment multiple types of objects within the scene. Furthermore, instance segmentation demands pixel-level precision in delineating object boundaries, which is a more complex and fine-grained task than bounding box detection. Therefore, lower metrics in segmentation compared to detection are expected and consistent with the increased difficulty of the task.
+
+Moreover, while the quantitative evaluation on the dataset provides valuable insights, it remains essential to validate the model's performance on real worksite footage where the hardware and software system will be deployed. Real-world conditions may introduce additional variability in lighting, occlusions, and object appearances, which could affect detection and segmentation accuracy. Such field testing will be critical to fully assess the practical effectiveness and robustness of the segmentation model in operational settings.
+
+
+### Conclusion
+
+This project demonstrated the development and evaluation of an instance segmentation model based on YOLOv11-seg for detecting and segmenting workers and machinery in industrial environments. The final model, trained with a carefully selected set of hyperparameters, showed strong performance in mask precision and mAP@0.5, indicating its potential for real-world deployment in safety monitoring and spatial analysis applications.
+
+However, several limitations remain. While many objects are correctly segmented, some workers and machines are still missed or incorrectly segmented, particularly in crowded or low-visibility scenes. The model’s performance on the more stringent mAP@0.5:0.95 metric also highlights room for improvement in fine-grained mask quality and localization precision. Compared to a previously trained object detection model, the segmentation model underperformed in all metrics, which is expected given the increased complexity of the task and the multi-class setting.
+
+Future work could explore improvements such as longer training schedules, more diverse augmentation strategies, incorporation of temporal information from video sequences, or the use of more advanced segmentation architectures. Additionally, testing the model on real worksite footage under deployment conditions is essential to assess its true robustness and to guide further refinement for operational use.
+
 
 
   
