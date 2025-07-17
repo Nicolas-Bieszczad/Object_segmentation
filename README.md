@@ -81,6 +81,27 @@ The random search approach provided an efficient way to explore different hyperp
 *Figure: Loss and metric curves for the different hyperparameter configurations tested during the random search optimization of the YOLOv11-seg model.*
 
 
+The hyperparameter configuration consisting of a batch size of 32, a learning rate of 0.0001, a weight decay of 0.0001, and the Adam optimizer yielded the best overall segmentation performance. This setup consistently achieved the highest or near-highest results in both `metrics/mAP50 (M)` and `metrics/mAP50-95 (M)`, indicating strong mask quality across a range of IoU thresholds. In addition to its superior performance on these metrics, the corresponding training and validation loss curves exhibit coherent and stable behavior. The segmentation loss (`val/seg_loss`) decreases progressively and smoothly over the course of training. Importantly, the training and validation loss curves follow similar trends, which suggests a consistent learning process and a low risk of overfitting. Other loss components, such as `val/cls_loss`, `val/dfl_loss`, also remain low and stable throughout training. While the precision achieved by this configuration is among the highest across all runs, the recall is comparatively lower, although still within the top-performing configurations. This indicates that the model is accurate when it makes predictions but may miss a portion of the relevant instances.
+
+
+Based on the results of the random search hyperparameter tuning, the final YOLOv11n-seg model was trained using the most effective configuration identified: a batch size of 32, a learning rate of 0.0001, a weight decay of 0.0001, and the Adam optimizer. This configuration was selected due to its consistently strong performance across mask-based evaluation metrics (`mAP50 (M)` and `mAP50-95 (M)`) and stable loss behavior. The model was trained for 100 epochs, in order to fully explore the optimization trajectory and allow the loss to continue decreasing over a longer time scale. This extended training period provided the model with sufficient capacity to refine its segmentation masks and minimize generalization error, while enabling thorough observation of training and validation dynamics.
+
+## Results
+
+The final YOLOv11n-seg model, trained with the best-performing hyperparameter configuration, was evaluated on the held-out test split to assess its generalization performance. The results reported below focus on mask-based evaluation metrics, which are most relevant for the instance segmentation task.
+
+| Metric                  | Value   |
+|-------------------------|---------|
+| Precision (M)           | 0.865   |
+| Recall (M)              | 0.609   |
+| mAP@0.5 (M)             | 0.690   |
+| mAP@0.5:0.95 (M)        | 0.418   |
+
+These values indicate that the model achieves high segmentation precision, successfully avoiding most false positives. Recall is moderately lower, suggesting that while most predicted masks are correct, some true instances may go undetected. The mAP@0.5 metric of 0.690 demonstrates that the model reliably localizes and segments objects with a reasonable degree of overlap. Meanwhile, the mAP@0.5:0.95 score of 0.418, while lower—as is typical with this stricter metric—still reflects satisfactory performance across a range of IoU thresholds. This suggests that the model maintains relatively consistent segmentation quality across both coarse and fine-grained evaluation conditions, even if some precision is lost at higher IoU requirements.
+
+To complement the quantitative results, a normalized confusion matrix is presented to analyze class-wise performance and misclassifications. Additionally, qualitative visualizations of the model's segmentation outputs on the test set are included to illustrate its ability to correctly segment workers and machinery in varied scenes. These examples further confirm the model's robustness and effectiveness in real-world conditions.
+
+
 
 
 
